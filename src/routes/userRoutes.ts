@@ -28,15 +28,17 @@ router.post("/", async (req, res) => {
 
 //List users
 router.get("/", async (req, res) => {
-  const allUser = await prisma.user.findMany();
-  res.json(allUser);
+  const allUsers = await prisma.user.findMany();
+  res.json(allUsers);
 });
 
 //Get 1 users
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
   const user = await prisma.user.findUnique({ where: { id: Number(id) } });
-
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
   res.json(user);
 });
 
@@ -58,7 +60,14 @@ router.put("/:id", async (req, res) => {
 // delete user
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
+  const user = await prisma.user.findUnique({ where: { id: Number(id) } });
+
+  if (!user) {
+    return res.status(404).json({ error: "Tweet not found" });
+  }
+
   await prisma.user.delete({ where: { id: Number(id) } });
+
   res
     .status(200)
     .json({ message: `User with ID ${id} has been successfully deleted.` });
