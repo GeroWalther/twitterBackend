@@ -81,7 +81,7 @@ router.post("/authenticate", async (req, res) => {
   if (dbEmailToken?.user?.email !== email) {
     return res.sendStatus(401);
   }
-  // Here we validated that the user is the owner of the email
+  // at this point we validated that the user is the owner of the email
 
   // generate an API token
   const expiration = new Date(
