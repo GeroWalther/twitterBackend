@@ -3,9 +3,9 @@ import { PrismaClient, User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
-const JWT_SECRET = "Titts are my motivation to code"; // needs to be stored in en env
-// Tweet CRUD
+const JWT_SECRET = process.env.JWT_SECRET || "Secret Titts";
 
+// Tweet CRUD
 type AuthRequest = Request & { user?: User };
 
 export async function authenticateToken(

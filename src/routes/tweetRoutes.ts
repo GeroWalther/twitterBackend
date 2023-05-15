@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 const router = Router();
 const prisma = new PrismaClient();
 
-const JWT_SECRET = "Titts are my motivation to code"; // needs to be stored in en env
 // Tweet CRUD
 
 // Create Tweet

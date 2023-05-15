@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const EMAIL_TOKEN_EXPIRATION_MINUTES = 10; // mins
 const AUTHENTICATION_EXPIRATION_HOURS = 12; // hours
-const JWT_SECRET = "Titts are my motivation to code"; // needs to be stored in en env
+const JWT_SECRET = process.env.JWT_SECRET || "Secret Titts";
 
 const router = Router();
 const prisma = new PrismaClient();
