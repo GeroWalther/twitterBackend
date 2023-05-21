@@ -12,7 +12,7 @@ const prisma = new PrismaClient();
 
 // Generate a random 8n digit number as the email token
 function generateEmailToken(): string {
-  return Math.floor(10000000 + Math.random() * 90000000).toString();
+  return Math.floor(1000 + Math.random() * 9000).toString();
 }
 
 function generateAuthToken(tokenId: number): string {
@@ -48,7 +48,9 @@ router.post("/login", async (req, res) => {
         },
       },
     });
+    console.log(createdToken);
     await sendEmailToken(email, emailToken);
+    console.log(email, emailToken);
 
     res.sendStatus(200);
   } catch (err) {
@@ -109,8 +111,8 @@ router.post("/authenticate", async (req, res) => {
 
   // generate the JWT token
   const authToken = generateAuthToken(apiToken.id);
-
-  res.json({ authToken });
+  const tokenValid = apiToken.expiration;
+  res.json({ authToken, tokenValid });
 });
 
 export default router;
